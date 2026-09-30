@@ -11,6 +11,7 @@
       --text: #2b2622;
       --muted: #7a6f63;
       --accent: #9a4a24;
+      --line: #e3d9c2;
     }
     * { box-sizing: border-box; }
     body {
@@ -26,9 +27,54 @@
     h3 { font-size: 1rem; margin: 0; }
     a { color: var(--accent); }
     nav a { margin-right: 16px; }
-    .job { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
-    .job img { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; background: #e6dcc6; }
-    .job p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+    /* Shared logo + text styles */
+    .logo {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .logo-round { border-radius: 8px; }   /* only for logos with a solid background */
+    .info { flex: 1; }
+    .info p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+    /* Dropdowns (single jobs and roles inside a company) */
+    .job, .company { border-bottom: 1px solid var(--line); }
+    .job summary, .role summary {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 0;
+      cursor: pointer;
+      list-style: none;
+    }
+    .job summary::-webkit-details-marker,
+    .role summary::-webkit-details-marker { display: none; }
+    .job summary:focus-visible,
+    .role summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .chevron {
+      width: 10px;
+      height: 10px;
+      border-right: 2px solid var(--muted);
+      border-bottom: 2px solid var(--muted);
+      transform: rotate(45deg);
+      transition: transform 0.2s ease;
+      margin-right: 6px;
+    }
+    .job[open] .chevron, .role[open] .chevron { transform: rotate(225deg); }
+    .job ul { margin: 0 0 16px; padding-left: 88px; padding-right: 8px; }
+    li { margin-bottom: 6px; font-size: 0.95rem; }
+
+    /* Company with more than one role */
+    .company-head { display: flex; align-items: center; gap: 16px; padding-top: 12px; }
+    .roles {
+      margin-left: 23px;              /* lines up with the middle of the logo */
+      padding-left: 41px;
+      border-left: 2px solid var(--line);
+    }
+    .role summary { padding: 10px 0; }
+    .role ul { margin: 0 0 12px; padding-left: 18px; padding-right: 8px; }
   </style>
 </head>
 <body>
@@ -50,20 +96,79 @@
 
     <section>
       <h2>Work Experience</h2>
-      <div class="job">
-        <img src="ey-logo.png" alt="EY logo">
-        <div>
-          <h3>Digital Risk &amp; Cyber Consulting Intern</h3>
-          <p>Ernst &amp; Young (EY) • June 2026 – August 2026</p>
+
+      <!-- Ernst & Young: one company, two separate roles -->
+      <div class="company">
+        <div class="company-head">
+          <img class="logo" src="ey-logo.png" alt="EY logo">
+          <div class="info">
+            <h3>Ernst &amp; Young (EY)</h3>
+            <p>2 internships • June 2025 – August 2026</p>
+          </div>
+        </div>
+        <div class="roles">
+          <details class="role">
+            <summary>
+              <div class="info">
+                <h3>Digital Risk &amp; Cyber Consulting Intern</h3>
+                <p>June 2026 – August 2026</p>
+              </div>
+              <span class="chevron"></span>
+            </summary>
+            <ul>
+              <li>Add what you worked on here.</li>
+              <li>Add a result or something you learned.</li>
+              <li>Add tools or skills you used.</li>
+            </ul>
+          </details>
+          <details class="role">
+            <summary>
+              <div class="info">
+                <h3>Launch Intern</h3>
+                <p>June 2025 – August 2025</p>
+              </div>
+              <span class="chevron"></span>
+            </summary>
+            <ul>
+              <li>Add what you worked on here.</li>
+              <li>Add a result or something you learned.</li>
+              <li>Add tools or skills you used.</li>
+            </ul>
+          </details>
         </div>
       </div>
-      <div class="job">
-        <img src="ey-logo.png" alt="EY logo">
-        <div>
-          <h3>Launch Intern</h3>
-          <p>Ernst &amp; Young (EY) • June 2025 – August 2025</p>
-        </div>
-      </div>
+
+      <details class="job">
+        <summary>
+          <img class="logo" src="ventures_enterprise_logo.png" alt="Carlson Ventures Enterprise logo">
+          <div class="info">
+            <h3>Associate Consultant</h3>
+            <p>Carlson Ventures Enterprise • September 2025 – May 2026</p>
+          </div>
+          <span class="chevron"></span>
+        </summary>
+        <ul>
+          <li>Add what you worked on here.</li>
+          <li>Add a result or something you learned.</li>
+          <li>Add tools or skills you used.</li>
+        </ul>
+      </details>
+
+      <details class="job">
+        <summary>
+          <img class="logo logo-round" src="cd.png" alt="Chuck &amp; Don's logo">
+          <div class="info">
+            <h3>Assistant Store Manager</h3>
+            <p>Chuck &amp; Don's Pet Food &amp; Supplies • March 2023 – August 2023</p>
+          </div>
+          <span class="chevron"></span>
+        </summary>
+        <ul>
+          <li>Add what you worked on here.</li>
+          <li>Add a result or something you learned.</li>
+          <li>Add tools or skills you used.</li>
+        </ul>
+      </details>
     </section>
 
     <section>
